@@ -55,9 +55,14 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+//costanti
 
 const containerDom = document.getElementById('container');
 
+
+
+//funzioni
+//collego gli oggetti alla struttura html
 posts.forEach( post => {
     containerDom.innerHTML += `<div class="post">
                                     <div class="post__header">
@@ -84,9 +89,29 @@ posts.forEach( post => {
                                                 </a>
                                             </div>
                                             <div class="likes__counter">
-                                                Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.like}</b> persone
+                                                Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
                                             </div>
                                         </div> 
                                     </div>            
                                 </div>`;
 })
+
+
+
+const jsLikeButtonDom = document.getElementsByClassName('js-like-button');
+const arraylike = [];
+
+for (let i = 0 ; i < jsLikeButtonDom.length; i ++) {
+    
+    jsLikeButtonDom[i].addEventListener('click', function (event) {
+        event.preventDefault();
+
+        this.classList.add('like-button--liked');
+        const postid = this.getAttribute('data-postid');
+        const likeCounterDom = document.getElementById('like-counter-' + postid);
+        likeCounterDom.innerText = parseInt(likeCounterDom.innerText) + 1;
+
+        arraylike.push(postid);
+
+    }); 
+}
